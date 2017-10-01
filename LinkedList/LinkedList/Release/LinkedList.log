@@ -1,0 +1,8 @@
+﻿  stdafx.c
+  LinkedList.c
+LinkedList.c(88): warning C4477: "scanf_s": в строке форматирования "%d" требуется аргумент типа "int *", но вариативный аргумент "1" имеет тип "int"
+  Создание кода
+  All 10 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Создание кода завершено
+  LinkedList.vcxproj -> C:\Users\danil\Desktop\ЯСП\Lab4\LinkedList\Release\LinkedList.exe
+  LinkedList.vcxproj -> C:\Users\danil\Desktop\ЯСП\Lab4\LinkedList\Release\LinkedList.pdb (Full PDB)
