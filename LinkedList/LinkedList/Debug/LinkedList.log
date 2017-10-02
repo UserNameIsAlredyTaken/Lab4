@@ -1,3 +1,9 @@
-﻿  LinkedList.c
+﻿  main.c
+c:\users\danil\desktop\ясп\lab4\linkedlist\linkedlist\main.c(12): warning C4473: "scanf_s": передано недостаточно аргументов для строки формата
+  c:\users\danil\desktop\ясп\lab4\linkedlist\linkedlist\main.c(12): note: заполнители и их параметры ожидают переменное число аргументов в количестве 3, но было предоставлено 2
+  c:\users\danil\desktop\ясп\lab4\linkedlist\linkedlist\main.c(12): note: отсутствующий вариативный аргумент "3" требуется для строки форматирования "%c"
+  c:\users\danil\desktop\ясп\lab4\linkedlist\linkedlist\main.c(12): note: этот аргумент используется в качестве размера буфера
+  high_func.c
+  Создание кода...
   LinkedList.vcxproj -> C:\Users\danil\Desktop\ЯСП\Lab4\LinkedList\Debug\LinkedList.exe
   LinkedList.vcxproj -> C:\Users\danil\Desktop\ЯСП\Lab4\LinkedList\Debug\LinkedList.pdb (Partial PDB)
