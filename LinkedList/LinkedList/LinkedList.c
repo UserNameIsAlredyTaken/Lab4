@@ -28,12 +28,11 @@ void list_add_back(const int value, struct linked_list** list){
 	another_node->value = value;
 }
 
-struct linked_list* list_create(/*const int value*/){
+struct linked_list* list_create(){
 	struct linked_list* new_list = (struct linked_list*)malloc(sizeof(struct linked_list));
 	new_list->length = 0;
 	new_list->the_first = NULL;
 	new_list->the_last = NULL;
-	//list_add_front(value, &new_list);
 	return new_list;
 }
 
@@ -122,7 +121,16 @@ int foldl(int acc, struct linked_list* list, int (*func)(int, int)) {
 	return acc;
 }
 
-
+struct linked_list* iterate(const int initial, const int length, int(*func)(int)){
+	struct linked_list* new_list = list_create();
+	int s = initial;
+	list_add_back(s,&new_list);
+	for (int i = 0; i < length - 1;i++){
+		s = func(s);
+		list_add_back(s, &new_list);
+	}
+	return new_list;
+}
 
 int main() {
 	struct linked_list* the_list = list_create();
