@@ -12,17 +12,25 @@ struct linked_list {
 };
 
 void list_add_front(const int value, struct linked_list** list) {
-	struct linked_list_node* another_node = (struct linked_list_node*)malloc(sizeof(struct linked_list_node));
+	struct linked_list_node* another_node = (struct linked_list_node*)malloc(sizeof(struct linked_list_node));	
 	another_node->next = (*list)->the_first;
 	(*list)->the_first = another_node;
+	if((*list)->the_last==NULL){
+		(*list)->the_last = another_node;
+	}
 	(*list)->length++;
 	another_node->value = value;
 }
 
 void list_add_back(const int value, struct linked_list** list) {
 	struct linked_list_node* another_node = (struct linked_list_node*)malloc(sizeof(struct linked_list_node));
-	((*list)->the_last)->next = another_node;
-	another_node->next = 0;
+	another_node->next = NULL;
+	if((*list)->the_last == NULL){	
+		(*list)->the_first = another_node;
+	}else{
+		((*list)->the_last)->next = another_node;
+	}
+	(*list)->the_last = another_node;
 	(*list)->length++;
 	another_node->value = value;
 }

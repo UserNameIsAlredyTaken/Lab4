@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "listH.h"
 
-void foreach(struct linked_list* list, void(*func)(int)){
+void foreach(const struct linked_list* list, void(*func)(int)){
 	struct linked_list_node* the_node = list->the_first;
 	func(the_node->value);
 	for (int i = 0; i<list->length - 1; i++) {
@@ -11,7 +11,7 @@ void foreach(struct linked_list* list, void(*func)(int)){
 	}
 }
 
-struct linked_list map(struct linked_list* old_list, int(*func)(int)){
+struct linked_list map(const struct linked_list* old_list, int(*func)(int)){
 	struct linked_list* new_list = list_create();
 	struct linked_list_node* old_node = old_list->the_first;
 	list_add_back(func(old_node->value), &new_list);
@@ -32,7 +32,7 @@ struct linked_list map_mut(struct linked_list* list, int(*func)(int)){
 	return *list;
 }
 
-int foldl(int acc, struct linked_list* list, int(*func)(int, int)){
+int foldl(int acc, const struct linked_list* list, int(*func)(int, int)){
 	struct linked_list_node* the_node = list->the_first;
 	acc = func(the_node->value, acc);
 	for (int i = 0; i<list->length - 1; i++) {
