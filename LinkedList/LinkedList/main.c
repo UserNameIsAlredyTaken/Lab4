@@ -1,10 +1,11 @@
 #include "stdafx.h"
 #include <malloc.h>
+#include "limits.h"
+#include <stdbool.h>
 #include "listH.h"
 #include "funcH.h"
-#include "limits.h"
 
-void foreach_spaces(const int value){
+void foreach_spaces(const int value) {
 	printf("%d ", value);
 }
 void foreach_new_line(const int value) {
@@ -43,18 +44,46 @@ int iterate_double(int value){
 	return value * 2;
 }
 
+bool serialize(const struct linked_list* list, const char* filename){
+	FILE *f = fopen(filename, "wb");
+	if (f == NULL) {
+		return false;
+	}
+	struct linked_list_node* the_node = list->the_first;
+	for (int i = 0; i<list->length - 1; i++) {
+		the_node = the_node->next;
+		fwrite(&(the_node->value), sizeof(int), 1, f);
+	}
+	fclose(f);
+	return true;
+}
+
+bool deserialize(struct linked_list** list, const char* filename) {
+	FILE *f = fopen(filename, "rb");
+	if (f == NULL) {
+		return false;
+	}
+	int input = 0;
+	while (fread(&input, sizeof(int), 1, f) == 1) {		
+		list_add_front(input, list);
+	}
+	fclose(f);
+	return true;
+}
+
+
 int main() {
 	struct linked_list* the_list = list_create();
 	int input=0;
 	printf("Enter the array\n");
 	char c = ' ';
 	while (c != '\n') {
-		scanf_s("%d%c", &input, &c);
+		scanf("%d%c", &input, &c);
 		list_add_front(input, &the_list);
 	}
-	printf("The summ is: %d\n", list_sum(*the_list));	
+	/*printf("The summ is: %d\n", list_sum(*the_list));	
 
-	foreach(the_list, foreach_spaces);
+	/*foreach(the_list, foreach_spaces);
 	printf("\n");
 	foreach(the_list, foreach_new_line);
 	printf("\n");
@@ -82,6 +111,14 @@ int main() {
 
 	struct linked_list* cheking_iterate_list = iterate(1,10,iterate_double);
 	foreach(cheking_iterate_list, foreach_spaces);
+
+	save(the_list,"t.txt");
+	
+	bool isOk = load(&the_list, "input.txt");	
+	foreach(the_list, foreach_spaces);*/
+
+	deserialize(&the_list,"serializableFile.txt");
+	foreach(the_list, foreach_spaces);
 
 	list_free(*the_list);
 }

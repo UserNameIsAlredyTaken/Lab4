@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include <stdlib.h>
 #include "listH.h"
+#include <stdbool.h>
 
 void foreach(const struct linked_list* list, void(*func)(int)){
 	struct linked_list_node* the_node = list->the_first;
@@ -51,4 +52,34 @@ struct linked_list* iterate(const int initial, const int length, int(*func)(int)
 		list_add_back(s, &new_list);
 	}
 	return new_list;
+}
+
+bool save(const struct linked_list* list, const char* filename){
+	FILE *f = fopen(filename, "w");
+	if(f==NULL){
+		return false;
+	}
+	struct linked_list_node* the_node = list->the_first;
+	fprintf(f, "%d ", the_node->value);
+	for (int i = 0; i<list->length - 1; i++) {
+		the_node = the_node->next;
+		fprintf(f, "%d ", the_node->value);
+	}
+	fclose(f);
+	return true;
+}
+
+bool load(struct linked_list** list, const char* filename){
+	FILE *f = fopen(filename, "r");
+	if (f == NULL) {
+		return false;
+	}
+	int input = 0;
+	char c = ' ';
+	while (c !='\n') {
+		fscanf(f,"%d%c", &input, &c);
+		list_add_front(input, list);
+	}
+	fclose(f);
+	return true;
 }
