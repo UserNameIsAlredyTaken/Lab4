@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include <stdlib.h>
-#include "listH.h"
+#include "list.h"
 #include <stdbool.h>
 
 void foreach(const struct linked_list* list, void(*func)(int)){
@@ -76,8 +76,35 @@ bool load(struct linked_list** list, const char* filename){
 	}
 	int input = 0;
 	char c = ' ';
-	while (c !='\n') {
-		fscanf(f,"%d%c", &input, &c);
+	while (fscanf(f, "%d%c", &input, &c)==2){		
+		list_add_front(input, list);
+	}
+	fclose(f);
+	return true;
+}
+
+bool serialize(const struct linked_list* list, const char* filename){
+	FILE *f = fopen(filename, "wb");
+	if (f == NULL) {
+		return false;
+	}
+	struct linked_list_node* the_node = list->the_first;
+	fwrite(&(the_node->value), sizeof(int), 1, f);
+	for (int i = 0; i<(list->length)-1; i++) {
+		the_node = the_node->next;
+		fwrite(&(the_node->value), sizeof(int), 1, f);
+	}
+	fclose(f);
+	return true;
+}
+
+bool deserialize(struct linked_list** list, const char* filename){
+	FILE *f = fopen(filename, "rb");
+	if (f == NULL) {
+		return false;
+	}
+	int input = 0;
+	while (fread(&input, sizeof(int), 1, f) == 1) {
 		list_add_front(input, list);
 	}
 	fclose(f);

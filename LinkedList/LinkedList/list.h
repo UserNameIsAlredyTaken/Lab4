@@ -1,4 +1,6 @@
 #pragma once
+#ifndef LIST_H
+#define LIST_H
 struct linked_list_node {
 	int value;
 	struct linked_list_node* next;
@@ -16,3 +18,4 @@ void list_free(const struct linked_list list);
 int list_length(const struct linked_list list);
 struct linked_list_node* list_node_at(const int index, const struct linked_list list);
 int list_sum(const struct linked_list list);
+#endif

@@ -1,3 +1,5 @@
 ﻿  main.c
+c:\users\danil\desktop\ясп\lab4\linkedlist\linkedlist\main.c(89): warning C4047: функция: "linked_list *" отличается по уровням косвенного обращения от "linked_list **"
+c:\users\danil\desktop\ясп\lab4\linkedlist\linkedlist\main.c(89): warning C4024: load: различные типы для формального и фактического параметров 1
   LinkedList.vcxproj -> C:\Users\danil\Desktop\ЯСП\Lab4\LinkedList\Debug\LinkedList.exe
   LinkedList.vcxproj -> C:\Users\danil\Desktop\ЯСП\Lab4\LinkedList\Debug\LinkedList.pdb (Partial PDB)

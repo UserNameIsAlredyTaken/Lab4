@@ -1,9 +1,8 @@
 #include "stdafx.h"
-#include <malloc.h>
 #include "limits.h"
 #include <stdbool.h>
-#include "listH.h"
-#include "funcH.h"
+#include "list.h"
+#include "func.h"
 
 void foreach_spaces(const int value) {
 	printf("%d ", value);
@@ -35,42 +34,14 @@ int foldel_max(int max, int const value) {
 	return max;
 }
 
-int map_mut_abs(int value){
+int map_mut_abs(const int value){
 	if (value < 0) { return -value;}
 	return value;
 }
 
-int iterate_double(int value){
+int iterate_double(const int value){
 	return value * 2;
 }
-
-bool serialize(const struct linked_list* list, const char* filename){
-	FILE *f = fopen(filename, "wb");
-	if (f == NULL) {
-		return false;
-	}
-	struct linked_list_node* the_node = list->the_first;
-	for (int i = 0; i<list->length - 1; i++) {
-		the_node = the_node->next;
-		fwrite(&(the_node->value), sizeof(int), 1, f);
-	}
-	fclose(f);
-	return true;
-}
-
-bool deserialize(struct linked_list** list, const char* filename) {
-	FILE *f = fopen(filename, "rb");
-	if (f == NULL) {
-		return false;
-	}
-	int input = 0;
-	while (fread(&input, sizeof(int), 1, f) == 1) {		
-		list_add_front(input, list);
-	}
-	fclose(f);
-	return true;
-}
-
 
 int main() {
 	struct linked_list* the_list = list_create();
@@ -81,44 +52,48 @@ int main() {
 		scanf("%d%c", &input, &c);
 		list_add_front(input, &the_list);
 	}
-	/*printf("The summ is: %d\n", list_sum(*the_list));	
+	printf("The summ is: %d\n", list_sum(*the_list));	
 
-	/*foreach(the_list, foreach_spaces);
-	printf("\n");
+	printf("\nCheck \"foreach_spaces\"\n");
+	foreach(the_list, foreach_spaces);
+	printf("\nCheck \"foreach_new_line\"\n");
 	foreach(the_list, foreach_new_line);
-	printf("\n");
 
+	printf("\nCheck \"map_square\"\n");
 	struct linked_list cheking_map_list = map(the_list,map_square);
 	foreach(&cheking_map_list, foreach_spaces);
+	printf("\nCheck \"map_cube\"\n");
 	cheking_map_list = map(the_list, map_cube);
 	foreach(&cheking_map_list, foreach_spaces);
 
+	printf("\n\nCheck \"foldel_sum\"\n");
 	int acc = foldl(0, the_list, foldel_sum);
 	printf("The summ is: %d\n", acc);
-	printf("\n");
-
+	printf("\nCheck \"foldel_min\"\n");
 	int min = foldl(INT_MAX, the_list, foldel_min);
 	printf("The min is: %d\n", min);
-	printf("\n");
-
+	printf("\nCheck \"foldel_max\"\n");
 	int max = foldl(INT_MIN, the_list, foldel_max);
 	printf("The max is: %d\n", max);
-	printf("\n");
 
+	printf("\nCheck \"map_mut_abs\"\n");
 	map_mut(the_list, map_mut_abs);
 	foreach(the_list, foreach_spaces);
-	printf("\n");
 
+	printf("\n\nCheck \"iterate_double\"\n");
 	struct linked_list* cheking_iterate_list = iterate(1,10,iterate_double);
 	foreach(cheking_iterate_list, foreach_spaces);
 
-	save(the_list,"t.txt");
-	
-	bool isOk = load(&the_list, "input.txt");	
-	foreach(the_list, foreach_spaces);*/
-
-	deserialize(&the_list,"serializableFile.txt");
+	printf("\n\nCheck \"save\" and \"load\"\n");
+	save(the_list,"t.txt");	
+	bool isOk = load(&the_list, "t.txt");	
 	foreach(the_list, foreach_spaces);
+
+	printf("\n\nCheck \"serialize\" and \"desrialize\"\n");
+	struct linked_list* new_list = list_create();
+	serialize(the_list, "ser.txt");
+	deserialize(&new_list, "ser.txt");
+	foreach(new_list, foreach_spaces);	
 
 	list_free(*the_list);
 }
