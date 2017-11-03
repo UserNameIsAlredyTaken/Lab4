@@ -69,7 +69,7 @@ bool save(const struct linked_list* list, const char* filename){
 	return true;
 }
 
-bool load(struct linked_list** list, const char* filename){
+bool load(struct linked_list* list, const char* filename){
 	FILE *f = fopen(filename, "r");
 	if (f == NULL) {
 		return false;
@@ -77,7 +77,7 @@ bool load(struct linked_list** list, const char* filename){
 	int input = 0;
 	char c = ' ';
 	while (fscanf(f, "%d%c", &input, &c)==2){		
-		list_add_front(input, list);
+		list_add_front(input, &list);
 	}
 	fclose(f);
 	return true;

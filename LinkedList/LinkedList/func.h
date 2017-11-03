@@ -1,6 +1,6 @@
 #pragma once
 #ifndef FUNC_H
-#define FUNNC_H
+#define FUNC_H
 void foreach(struct linked_list* list, void(*func)(int));
 struct linked_list map(struct linked_list* old_list, int(*func)(int));
 struct linked_list map_mut(struct linked_list* list, int(*func)(int));

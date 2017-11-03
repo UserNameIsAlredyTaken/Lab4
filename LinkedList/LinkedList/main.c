@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include "list.h"
 #include "func.h"
+#include <stdlib.h>
 
 void foreach_spaces(const int value) {
 	printf("%d ", value);
@@ -41,6 +42,30 @@ int map_mut_abs(const int value){
 
 int iterate_double(const int value){
 	return value * 2;
+}
+
+int multiplier(int a, int b){
+	return a*b;
+}
+
+typedef int(*MyFunc)(int);
+
+struct str {
+	int a;
+	int(*function)(int, int);
+};
+
+int call(struct str* st ,int b){
+	int res = st->function(st->a, b);
+	return res;
+}
+
+
+struct str* bind_second(int(*func)(int,int),int b){
+	struct str* new_str = (struct str*)malloc(sizeof(struct str));
+	new_str->a = b;
+	new_str->function = *func;
+	return new_str;
 }
 
 int main() {
@@ -86,7 +111,7 @@ int main() {
 
 	printf("\n\nCheck \"save\" and \"load\"\n");
 	save(the_list,"t.txt");	
-	bool isOk = load(&the_list, "t.txt");	
+	bool isOk = load(the_list, "t.txt");	
 	foreach(the_list, foreach_spaces);
 
 	printf("\n\nCheck \"serialize\" and \"desrialize\"\n");

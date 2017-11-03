@@ -5,11 +5,13 @@ struct linked_list_node {
 	int value;
 	struct linked_list_node* next;
 };
-struct linked_list {
-	int length;
-	struct linked_list_node* the_first;
-	struct linked_list_node* the_last;
+struct a
+{
+	int a;
+	int b;
+	struct private * ptr;
 };
+struct linked_list;
 void list_add_front(const int value, struct linked_list** list);
 void list_add_back(const int value, struct linked_list** list);
 struct linked_list* list_create();

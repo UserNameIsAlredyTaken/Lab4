@@ -5,6 +5,7 @@ struct linked_list_node {
 	int value;
 	struct linked_list_node* next;
 };
+
 struct linked_list {
 	int length;
 	struct linked_list_node* the_first;
